@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  get 'home', to: 'app_home#home', as: 'home'
+
   devise_for :users
 
   devise_scope :user do
     authenticated :user do
-      root 'devise/registrations#edit', as: :authenticated_root
+      root 'app_home#home', as: :authenticated_root
     end
 
     unauthenticated do

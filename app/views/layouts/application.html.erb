@@ -15,8 +15,16 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+
+    <%  if user_signed_in? %>
+      <!-- main navbar -->
+      <%= render 'components/main_navbar' %>
+    <% end %>
+
+    <!-- <div class="ui basic segment"> -->
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    <!-- </div> -->
   </body>
 </html>

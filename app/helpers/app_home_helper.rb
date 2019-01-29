@@ -1,0 +1,2 @@
+module AppHomeHelper
+end
