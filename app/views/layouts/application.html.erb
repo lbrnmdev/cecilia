@@ -20,8 +20,7 @@
       <%= render 'components/main_navbar' %>
     <% end %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render partial: 'shared/flash' unless flash.empty? %>
     <%= yield %>
   </body>
 </html>

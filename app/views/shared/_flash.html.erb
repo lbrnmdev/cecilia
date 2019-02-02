@@ -1,0 +1,14 @@
+<div class="ui flash container">
+  <!-- <div class="ui grid"> -->
+    <% flash.each do |type, message| %>
+      <!-- <div class="row"> -->
+        <!-- <div class="column"> -->
+          <div class="ui <%= semantic_ui_class_for(type) %> flash floating message">
+            <i class="close icon"></i>
+            <%= message %>
+          </div>
+        <!-- </div> -->
+      <!-- </div> -->
+    <% end %>
+  <!-- </div> -->
+</div>
