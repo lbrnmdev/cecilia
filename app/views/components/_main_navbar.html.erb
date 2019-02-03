@@ -58,7 +58,7 @@
                   <%= current_user.email %>
                 </div>
                 <div class="description">
-                  <%= link_to "Account settings", "#"%>&emsp;
+                  <%= link_to "Account settings", edit_user_registration_path %>&emsp;
                   <%= link_to destroy_user_session_path, class: 'ui blue basic button', method: :delete do %>
                     Sign out
                   <% end %>

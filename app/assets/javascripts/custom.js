@@ -16,4 +16,16 @@ $(document).on('turbolinks:load', function() {
     $('.flash.message')
       .transition('pulse')
     ;
+    // enable delete account modal
+    $('#delete_account_button')
+      .on('click', function() {
+        $('.ui.modal.delete_account')
+          .modal('show')
+        ;
+      })
+    ;
+    // enable accordions
+    $('.ui.accordion')
+      .accordion()
+    ;
 });

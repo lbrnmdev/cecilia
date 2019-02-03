@@ -1,43 +1,155 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="ui container">
+  <div class="ui computer reversed grid">
+    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+      <h2 class="ui header">
+        <div class="content">
+          Profile Settings
+          <div class="sub header">Manage your personal and company information</div>
+        </div>
+      </h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="ui placeholder segment">
+        <div class="ui icon header">
+          <i class="user outline icon"></i>
+          Modify profile info here
+        </div>
+      </div>
+
+      <h2 class="ui header">
+        <div class="content">
+          Account Settings
+          <div class="sub header">Manage your email and password information</div>
+        </div>
+      </h2>
+
+      <div class="ui segment shadowless">
+
+        <%= devise_error_messages! %>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class:'ui form' }) do |f| %>
+
+          <div class="field">
+            <%= f.label :email %>
+            <div class="field <%= "error" if resource.errors.details.key? :email %>">
+              <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
+            </div>
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="ui hidden divider"></div>
+          <div class="ui hidden divider"></div>
+
+          <h3 class="ui header">
+            <div class="content">
+              Password settings
+              <div class="sub header">
+                edit only if you want to change your password
+              </div>
+            </div>
+          </h3>
+
+          <div class="field">
+            <div class="two fields">
+              <div class="field <%= "error" if resource.errors.details.key? :password %>">
+                <% if @minimum_password_length %>
+                  <%= f.password_field :password, autocomplete: "new-password", placeholder: "new password" %>
+                <% else %>
+                  <%= f.password_field :password, autocomplete: "new-password", placeholder: "new password" %>
+                <% end %>
+              </div>
+
+              <div class="field <%= "error" if resource.errors.details.key? :password_confirmation %>">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'confirmation' %>
+              </div>
+            </div>
+
+            <span><small><%= "Minimum of #{@minimum_password_length} characters. Please use a combination of letters and numbers." %></small></span>
+          </div>
+
+          <div class="ui hidden divider"></div>
+          <div class="ui hidden divider"></div>
+
+          <h4 class="ui horizontal divider header">
+            <div class="content">
+              Confirm changes
+              <div class="sub header">
+                enter your current password to confirm changes
+              </div>
+            </div>
+          </h4>
+
+          <div class="field">
+            <div class="field <%= "error" if resource.errors.details.key? :current_password %>">
+              <%= f.password_field :current_password, autocomplete: "current-password", placeholder: 'current password' %>
+            </div>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Save changes", class: 'ui fluid large green submit button' %>
+          </div>
+
+        <% end %>
+
+      </div>
+
+      <!-- bottom link row -->
+      <div class="ui grid">
+        <div class="two column row">
+          <div class="left aligned column">
+            <%= link_to "Go back", :back%>
+          </div>
+          <div class="right aligned column">
+            <%#= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, id:'cancel_account_link' %>
+            <div class="ui compact basic red button" id="delete_account_button">
+              <i class="trash alternate outline icon"></i>
+              Cancel my account
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end bottom link row -->
+    </div>
+
+    <div class="sixteen wide mobile four wide tablet four wide computer column">
+      <div class="ui blue fluid large vertical secondary menu">
+        <%= link_to 'Back to Overview', home_path, class:'header item' %>
+        <div class="ui divider"></div>
+        <%= link_to '#', class: 'item' do %>
+          <i class="left question icon"></i>
+          Help
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+  <!-- begin cancel account modal -->
+  <div class="ui modal delete_account">
+    <i class="close icon"></i>
+    <div class="header">
+      <h2 class="ui red header">
+        <i class="hand paper outline icon"></i>
+        Are you sure?
+      </h2>
+    </div>
+    <div class="content">
+      <p>Deleting your account means you will lose all saved information.</p>
+      <p>All records of disbursement transactions and SMS messages sent will be lost as well.</p>
+      <p><i class="warning circle icon"></i>If you are the sole admin user for your company you will be unable to delete your account. Please rather contact us for assistance.</p>
+    </div>
+    <div class="actions">
+      <div class="ui blue basic deny left floated button">
+        No, go back
+      </div>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+      <%= link_to registration_path(resource_name), method: :delete, class:'ui red right labeled icon button' do %>
+        Delete my account
+        <i class="trash alternate outline icon"></i>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <!-- end cancel account modal -->
+</div>
