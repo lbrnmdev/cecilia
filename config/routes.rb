@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_profiles, only: [:new, :create]
   get 'home', to: 'app_home#home', as: 'home'
 
   devise_for :users, controllers: {

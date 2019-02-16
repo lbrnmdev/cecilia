@@ -1,0 +1,88 @@
+<div class="ui container">
+
+  <div class="ui fluid unstackable mini steps">
+    <div class="active step">
+      <i class="address card outline icon"></i>
+      <div class="content">
+        <div class="title">
+          Profile
+        </div>
+        <div class="description">
+          Setup your profile
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <i class="building outline icon"></i>
+      <div class="content">
+        <div class="title">
+          Organization
+        </div>
+        <div class="description">
+          Join an organization
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui segment">
+    <div class="ui two column stackable mobile reversed relaxed grid">
+
+      <!-- avatar column -->
+      <div class="four wide column">
+        <div class="ui fluid card">
+          <div class="image">
+            <div class="ui placeholder">
+              <div class="square image"></div>
+            </div>
+          </div>
+          <div class="content">
+            <button type="button" name="button" class="ui fluid basic button">edit avatar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- form column -->
+      <div class="twelve wide column">
+        <%= form_for(@user_profile, html: {class: 'ui form'}) do |f| %>
+          <div class="two fields">
+            <div class="field <%= "error" if @user_profile.errors.details.key? :firstname %>">
+              <%= f.label :firstname %>
+              <%= f.text_field :firstname, autofocus: true, placeholder: :firstname %>
+            </div>
+            <div class="field <%= "error" if @user_profile.errors.details.key? :lastname %>">
+              <%= f.label :lastname %>
+              <%= f.text_field :lastname, autofocus: true, placeholder: :lastname %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field <%= "error" if @user_profile.errors.details.key? :phone %>">
+              <%= f.label 'Telephone' %>
+              <%= f.text_field :phone, autofocus: true, placeholder: '(Country Code)-(8 digit number)' %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- placeholder for other profile info. settings perhaps? -->
+        <div class="ui hidden divider"></div>
+        <div class="ui fluid placeholder">
+          <div class="paragraph">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+          <div class="paragraph">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= submit_tag "Save", form: "new_user_profile", class: "ui fluid blue button" %>
+
+</div>
