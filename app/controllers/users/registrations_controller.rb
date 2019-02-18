@@ -51,9 +51,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  # TODO: Make sure you test this
+  # TODO: Adjust to check if resource is named something other than user
+  def after_sign_up_path_for(resource)
+    if resource.is_a?(User) && resource.user_profile.nil? # go to new profile page
+      new_user_profile_path
+    else
+      super(resource)
+    end
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)

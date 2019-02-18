@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get 'home', to: 'app_home#home', as: 'home'
 
   devise_for :users, controllers: {
-    sessions: 'users/sessions'  # allow customizing controller behavior
+    # allow customizing controller behavior
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
 
   devise_scope :user do

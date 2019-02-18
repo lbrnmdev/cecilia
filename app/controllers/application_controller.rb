@@ -2,6 +2,16 @@ class ApplicationController < ActionController::Base
   # ensure user is logged in for all actions
   before_action :authenticate_user!
 
+  # override default devise behavior
+  # force redirection to new profile creation if user doesn't have a profile yet
+  def after_sign_in_path_for resource
+    if resource.is_a?(User) && resource.user_profile.nil?
+      new_user_profile_path
+    else
+      super
+    end
+  end
+
   private
 
     # check if resource belongs to current user
