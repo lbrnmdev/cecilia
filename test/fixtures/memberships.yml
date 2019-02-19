@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  workspace: one
+  user: one
+  workspace_creator: false
+  workspace_admin: false
+
+two:
+  workspace: two
+  user: two
+  workspace_creator: false
+  workspace_admin: false

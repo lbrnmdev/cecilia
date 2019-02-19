@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_004501) do
+ActiveRecord::Schema.define(version: 2019_02_19_020324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "workspace_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "workspace_creator", default: false, null: false
+    t.boolean "workspace_admin", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+    t.index ["workspace_admin"], name: "index_memberships_on_workspace_admin"
+    t.index ["workspace_id", "user_id"], name: "index_memberships_on_workspace_id_and_user_id", unique: true
+    t.index ["workspace_id"], name: "index_memberships_on_workspace_id"
+  end
 
   create_table "user_profiles", force: :cascade do |t|
     t.string "firstname"
@@ -45,5 +58,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_004501) do
     t.index ["sign_up_code"], name: "index_workspaces_on_sign_up_code", unique: true
   end
 
+  add_foreign_key "memberships", "users"
+  add_foreign_key "memberships", "workspaces"
   add_foreign_key "user_profiles", "users"
 end

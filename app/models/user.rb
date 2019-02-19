@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   # associations
   has_one :user_profile
+  has_many :memberships
+  has_many :workspaces, :through => :memberships
 end
