@@ -16,10 +16,15 @@ class UserProfilesController < ApplicationController
   end
 
   def create
-    @user_profile = current_user.create_user_profile(user_profile_params)
+    # FIXME change this to build_user_profile
+    @user_profile = current_user.build_user_profile(user_profile_params)
     if @user_profile.save
       flash[:success] = "Your profile's been created!"
-      redirect_to authenticated_root_url
+      if current_user.memberships.any?
+        redirect_to authenticated_root_url
+      else
+        redirect_to new_workspace_path
+      end
     else
       render 'new'
     end

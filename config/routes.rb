@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :workspaces, only: [:new, :create]
   resources :user_profiles, only: [:new, :create]
   get 'home', to: 'app_home#home', as: 'home'
 

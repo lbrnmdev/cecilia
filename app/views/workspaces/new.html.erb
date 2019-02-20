@@ -1,0 +1,115 @@
+<div class="ui container">
+
+  <!-- steps -->
+  <div class="ui fluid unstackable mini steps">
+    <div class="step">
+      <i class="address card outline icon"></i>
+      <div class="content">
+        <div class="title">
+          Profile
+        </div>
+        <div class="description">
+          Setup your profile
+        </div>
+      </div>
+    </div>
+    <div class="active step">
+      <i class="building outline icon"></i>
+      <div class="content">
+        <div class="title">
+          Organization
+        </div>
+        <div class="description">
+          Create or join
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end steps -->
+
+  <div class="ui basic segment">
+    <div class="ui stackable grid">
+
+      <!-- join existing workspace column -->
+      <div class="seven wide center aligned column">
+
+        <div class="ui segment">
+          <h2 class="ui icon dividing blue header">
+            <%= image_tag("connection.svg", class: "ui image") %>
+            <div class="content">
+              Join a workspace
+            </div>
+          </h2>
+
+          <div class="ui form">
+            <div class="field">
+              <h4 class="ui grey header"><em>Become a member of an already existing workspace</em></h4>
+            </div>
+            <div class="field">
+              <div class="ui fluid labeled input">
+                <div class="ui label">
+                  code #
+                </div>
+                <input type="text" placeholder="placeholder for sign up code">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui placeholder">
+                <div class="image header">
+                  <div class="medium line"></div>
+                  <div class="full line"></div>
+                </div>
+                <div class="paragraph">
+                  <div class="full line"></div>
+                  <div class="medium line"></div>
+                </div>
+              </div>
+            </div>
+            <div class="ui large blue button">
+              Join
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- end join existing workspace column -->
+
+      <div class="two wide middle aligned column">
+        <h1 class="ui center aligned grey header">OR</h1>
+      </div>
+
+      <!-- create new workspace column -->
+      <div class="seven wide center aligned column">
+
+        <div class="ui segment">
+          <h2 class="ui icon dividing blue header">
+            <%= image_tag("create.svg", class: "ui image") %>
+            <div class="content">
+              Create a new workspace
+            </div>
+          </h2>
+
+          <%= form_for(@workspace, html: {class: 'ui form'}) do |f| %>
+            <div class="field">
+              <h4 class="ui grey header"><em>Be the owner of a workspace within which you can manage money and SMS</em></h4>
+            </div>
+            <%= render_form_error_messages f.object %>
+            <div class="field <%= "error" if @workspace.errors.details.key? :name %>">
+              <%= f.text_field :name, autofocus: true, placeholder: 'Workspace name' %>
+              <span><small>Name your workspace as you wish, for example the name of your organization</small></span>
+            </div>
+            <div class="field <%= "error" if @workspace.errors.details.key? :description %>">
+              <%= f.text_field :description, autofocus: true, placeholder: 'Short description' %>
+              <span><small>A short description of your workspace/organization. (Max 255 characters)</small></span>
+            </div>
+            <%= f.submit "Create", class:"ui large blue button"%>
+          <% end %>
+        </div>
+
+      </div>
+      <!-- end create new workspace column -->
+
+    </div>
+
+  </div>
+</div>

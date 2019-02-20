@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_050731) do
+ActiveRecord::Schema.define(version: 2019_02_20_013059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_050731) do
     t.string "sign_up_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
     t.index ["sign_up_code"], name: "index_workspaces_on_sign_up_code", unique: true
   end
 

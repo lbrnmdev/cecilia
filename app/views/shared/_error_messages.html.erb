@@ -1,0 +1,30 @@
+<% if object.errors.any? %>
+  <div class="ui container">
+    <div class="ui floating negative message">
+      <i class="close icon"></i>
+
+      <h3 class="ui header">
+        <i class="warning icon"></i>
+        <div class="content">
+          Unable to complete action
+          <div class="sub header">
+            There <%="is".pluralize(object.errors.count) + " " + pluralize(object.errors.count, "error") %>
+          </div>
+        </div>
+      </h4>
+
+      <div class="ui basic red segment">
+        <div class="ui bulleted list">
+          <% object.errors.messages.each do |field, messages| %>
+            <% messages.each do |msg| %>
+              <div class="item">
+                <b><em><%= field.to_s.humanize %></em></b> <%= msg %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui hidden divider"></div>
+<% end %>
