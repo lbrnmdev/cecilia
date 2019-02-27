@@ -63,16 +63,44 @@
       <div class="row">
         <div class="item">
           <h2 class="ui header">
-            <%= ("Default Workspace the quick brown fox jumped over the lazy dog").truncate(23) %>
+            <%= (@workspace.name).truncate(23) %>
             <div class="sub header">
-              <a href="#">switch workspace</a>
+              <button class="ui basic tiny blue fluid button switch_workspace">switch workspace</button>
             </div>
           </h2>
-          <!-- begin workspace selection popup -->
-          <div class="ui flowing popup">
-            <h3 class="ui header">Select workspace</h3>
+          <!-- begin workspace selection modal -->
+          <div class="ui long large modal select_workspace">
+            <div class="header">
+              Your workspaces
+            </div>
+            <div class="content">
+              <% if current_user.workspaces.count > 1 %>
+                <div class="ui equal width center aligned divided stackable grid">
+                  <% current_user.workspaces.reject { |w| w == @workspace }.each do |w| %>
+                    <div class="column">
+                      <h3 class="ui header"><%= w.name.truncate(23) %></h3>
+                      <% if w.description.blank? || w.description.nil? %>
+                        <p><i>No description</i></p>
+                      <% else %>
+                        <p><%= w.description.truncate(23) %></p>
+                      <% end %>
+                      <%= link_to 'Select', w, class:'ui basic blue button' %>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <p>Click <%= link_to 'here', new_workspace_path %> to create/join a new workspace</p>
+              <% end %>
+            </div>
+            <div class="actions">
+              <%= link_to 'Create/Join Workspace', new_workspace_path, class:'ui left floated green basic button' %>
+              <div class="ui red basic cancel button">
+                <i class="remove icon"></i>
+                Cancel
+              </div>
+            </div>
           </div>
-          <!-- end workspace selection popup -->
+          <!-- end workspace selection modal -->
         </div>
       </div>
       <div class="row">

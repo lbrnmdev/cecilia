@@ -9,18 +9,31 @@ class WorkspacesController < ApplicationController
   def create
     @workspace = current_user.workspaces.build(workspace_params)
     if @workspace.save
-      flash[:success] = "You've created workspace: #{@workspace.name}!"
-      redirect_to authenticated_root_url # TODO change this to workspace show
+      flash[:success] = "Workspace: #{@workspace.name} created."
+      redirect_to @workspace
     else
       render 'new'
     end
   end
 
+  def show
+  end
+
+  def no_workspace
+  end
+
   private
+
+    def authenticate_user_membership this_workspace
+      unless this_workspace.users.include? current_user
+        flash[:error] = "Error ____: Not a member. Workspace id: #{this_workspace.id}"
+        redirect_to authenticated_root_url #TODO: replace this with workspace selection page
+      end
+    end
 
     def set_workspace
       @workspace = Workspace.find(params[:id])
-      # TODO: authenticate user membership
+      authenticate_user_membership @workspace
     end
 
     # TODO: method to check user privilages regarding editing, destroying etc

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  resources :workspaces, only: [:new, :create]
+  resources :workspaces, only: [:new, :create, :show]
   resources :user_profiles, only: [:new, :create]
   get 'home', to: 'app_home#home', as: 'home'
+  get 'no_workspace', to: 'workspaces#no_workspace', as: 'no_workspace'
 
   devise_for :users, controllers: {
     # allow customizing controller behavior

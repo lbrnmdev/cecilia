@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  # ensure user is logged in for all actions
-  before_action :authenticate_user!
+  before_action :authenticate_user! # ensure user is logged in for all actions
 
   # override default devise behavior
   # force redirection to new profile creation if user doesn't have a profile yet

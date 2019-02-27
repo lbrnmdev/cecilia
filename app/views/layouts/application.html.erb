@@ -12,6 +12,8 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta name="turbolinks-cache-control" content="no-cache"> <!-- disabling turbolinks 5 caching so that page js works on clicking back in browser -->
   </head>
 
   <body>

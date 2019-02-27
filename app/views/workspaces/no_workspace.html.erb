@@ -1,0 +1,51 @@
+<div class="ui container">
+  <div class="ui computer reversed grid">
+    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
+
+      <div class="ui placeholder segment">
+        <div class="ui icon header">
+          <i class="info circle icon"></i>
+          In order to use this application's features, you need to belong to a workspace
+        </div>
+        <%= link_to 'Create or join a workspace', new_workspace_path, class:'ui primary button'%>
+      </div>
+
+    </div>
+
+    <div class="sixteen wide mobile four wide tablet four wide computer column">
+      <div class="row">
+        <div class="item">
+          <h2 class="ui header">
+            <%= ("No workspace").truncate(23) %>
+            <div class="sub header">
+              <%= link_to 'Create or join a workspace', new_workspace_path %>
+            </div>
+          </h2>
+          <!-- begin workspace selection popup -->
+          <div class="ui flowing popup">
+            <h3 class="ui header">Select workspace</h3>
+          </div>
+          <!-- end workspace selection popup -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="ui blue fluid huge pointing vertical secondary menu">
+          <a href="#" class="header active item">Overview</a>
+          <%= link_to '#', class: 'disabled item' do %>
+            <!-- <i class="left envelope icon"></i> -->
+            SMS messaging
+          <% end %>
+          <%= link_to '#', class: 'disabled item' do %>
+            <!-- <i class="left dollar icon"></i> -->
+            Money disbursement
+          <% end %>
+          <div class="ui divider"></div>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left question icon"></i> -->
+            Help
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
