@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_20_013059) do
+ActiveRecord::Schema.define(version: 2019_02_28_162222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2019_02_20_013059) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "current_workspace_id"
+    t.index ["current_workspace_id"], name: "index_user_profiles_on_current_workspace_id"
     t.index ["user_id"], name: "index_user_profiles_on_user_id", unique: true
   end
 
@@ -62,4 +64,5 @@ ActiveRecord::Schema.define(version: 2019_02_20_013059) do
   add_foreign_key "memberships", "users"
   add_foreign_key "memberships", "workspaces"
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "user_profiles", "workspaces", column: "current_workspace_id", on_delete: :nullify
 end

@@ -45,6 +45,7 @@
       <!-- form column -->
       <div class="twelve wide column">
         <%= form_for(@user_profile, html: {class: 'ui form'}) do |f| %>
+          <%= render_form_error_messages f.object %>
           <div class="two fields">
             <div class="field <%= "error" if @user_profile.errors.details.key? :firstname %>">
               <%= f.label :firstname %>

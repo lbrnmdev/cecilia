@@ -13,8 +13,6 @@ class Users::SessionsController < Devise::SessionsController
     super
     # overide so flash doesn't display on successful sign in
     flash.delete(:notice)
-    # prompt user to complete user profile info
-    flash[:notice] = "Complete your profile info." if current_user.user_profile.nil?
   end
 
   # DELETE /resource/sign_out
