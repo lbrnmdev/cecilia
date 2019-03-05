@@ -4,13 +4,14 @@ class WorkspacesController < ApplicationController
   # TODO: before_action that checks privilages before edit, update, destroy
 
   def new
-    @workspace = current_user.workspaces.build
+    @workspace = Workspace.new
   end
 
   def create
-    @workspace = current_user.workspaces.build(workspace_params)
+    @workspace = Workspace.new workspace_params
     if @workspace.save
-      current_user.user_profile.current_workspace = @workspace
+      Membership.create(workspace: @workspace, user: current_user, workspace_creator: true, workspace_admin: true)  # make current_user creator and admin of this workspace
+      current_user.user_profile.current_workspace = @workspace  # set workspace as user's current workspace
       flash[:success] = "Workspace: #{@workspace.name} created."
       redirect_to @workspace
     else
