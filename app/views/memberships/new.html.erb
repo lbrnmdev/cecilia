@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="step">
+    <div class="active step">
       <i class="users icon"></i>
       <div class="content">
         <div class="title">
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="active step">
+    <div class="step">
       <i class="building outline icon"></i>
       <div class="content">
         <div class="title">
@@ -38,53 +38,45 @@
   </div>
   <!-- end steps -->
 
-  <!-- begin create workspace segment -->
+  <!-- begin join workspace segment -->
   <div class="ui segment">
     <div class="ui centered grid">
-
-      <!-- create new workspace column -->
       <div class="ui sixteen wide mobile eight wide tablet eight wide computer center aligned column">
-
         <div class="ui basic segment">
           <h2 class="ui icon dividing blue header">
-            <%= image_tag("create.svg", class: "ui image") %>
+            <%= image_tag("connection.svg", class: "ui image") %>
             <div class="content">
-              Create a new workspace
+              Join a workspace
             </div>
           </h2>
 
-          <%= form_for(@workspace, html: {class: 'ui form'}) do |f| %>
+          <%= form_for(@membership, html: {class: 'ui form'}) do |f| %>
             <div class="field">
-              <h4 class="ui grey header"><em>Be the owner of a workspace within which you can manage money and SMS</em></h4>
+              <h4 class="ui grey header"><em>Become a member of an already existing workspace</em></h4>
             </div>
-            <%= render_form_error_messages f.object %>
-            <div class="field <%= "error" if @workspace.errors.details.key? :name %>">
-              <%= f.text_field :name, autofocus: true, placeholder: 'Workspace name' %>
-              <span><small>Name your workspace as you wish, for example the name of your organization</small></span>
+            <div class="field">
+              <div class="ui fluid labeled input">
+                <div class="ui label">
+                  code #
+                </div>
+                <%= text_field_tag :sign_up_code, nil, placeholder: 'Enter sign up code here', autofocus:true %>
+              </div>
             </div>
-            <div class="field <%= "error" if @workspace.errors.details.key? :description %>">
-              <%= f.text_field :description, autofocus: true, placeholder: 'Short description' %>
-              <span><small>A short description of your workspace/organization. (Max 255 characters)</small></span>
-            </div>
-            <%= f.submit "Create", class:"ui large blue button"%>
+            <%= f.submit "Join", class:'ui large blue button' %>
           <% end %>
 
           <div class="ui horizontal divider">
             OR
           </div>
-          <%= link_to new_membership_path, class:'ui basic blue labeled icon button' do %>
-            Join a workspace
-            <i class="users icon"></i>
+          <%= link_to new_workspace_path, class:'ui basic blue labeled icon button' do %>
+            Create a new workspace
+            <i class="add icon"></i>
           <% end %>
         </div>
-
       </div>
-      <!-- end create new workspace column -->
-
     </div>
-
   </div>
-  <!-- end create workspace segment -->
+  <!-- end join workspace segment -->
 
   <div class="ui grid">
     <div class="center aligned row">

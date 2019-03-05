@@ -23,7 +23,7 @@ class UserProfilesController < ApplicationController
       if current_user.memberships.any?
         redirect_to authenticated_root_url
       else
-        redirect_to new_workspace_path
+        redirect_to new_membership_path
       end
     else
       render 'new'

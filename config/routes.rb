@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :workspaces, only: [:new, :create, :show]
   resources :user_profiles, only: [:new, :create]
+  resources :memberships, only: [:new, :create]
   get 'home', to: 'app_home#home', as: 'home'
   get 'no_workspace', to: 'workspaces#no_workspace', as: 'no_workspace'
 

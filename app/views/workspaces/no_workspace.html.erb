@@ -7,7 +7,7 @@
           <i class="info circle icon"></i>
           In order to use this application's features, you need to belong to a workspace
         </div>
-        <%= link_to 'Create or join a workspace', new_workspace_path, class:'ui primary button'%>
+        <%= link_to 'Join or create a workspace', new_membership_path, class:'ui primary button'%>
       </div>
 
     </div>
@@ -18,7 +18,7 @@
           <h2 class="ui header">
             <%= ("No workspace").truncate(23) %>
             <div class="sub header">
-              <%= link_to 'Create or join a workspace', new_workspace_path %>
+              <%= link_to 'Join or create a workspace', new_membership_path %>
             </div>
           </h2>
           <!-- begin workspace selection popup -->

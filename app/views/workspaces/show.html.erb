@@ -89,11 +89,11 @@
                   <% end %>
                 </div>
               <% else %>
-                <p>Click <%= link_to 'here', new_workspace_path %> to create/join a new workspace</p>
+                <p>Click <%= link_to 'here', new_membership_path %> to join/create a new workspace</p>
               <% end %>
             </div>
             <div class="actions">
-              <%= link_to 'Create/Join Workspace', new_workspace_path, class:'ui left floated green basic button' %>
+              <%= link_to 'Join/Create Workspace', new_membership_path, class:'ui left floated green basic button' %>
               <div class="ui red basic cancel button">
                 <i class="remove icon"></i>
                 Cancel
