@@ -18,4 +18,14 @@ class ApplicationController < ActionController::Base
         redirect_to new_user_profile_path
       end
     end
+
+    # ensure user is a member of given workspace
+    # TODO: move this to application controller and call before going to root if user has current_workspace set?
+    # TODO: include error id as parameter so there are different ones for different scenarios
+    def authenticate_user_membership workspace
+      unless workspace.users.include? current_user
+        flash[:error] = "Error ____: Not a member. Workspace id: #{workspace.id}"
+        redirect_to authenticated_root_url #TODO: replace this with workspace selection page
+      end
+    end
 end

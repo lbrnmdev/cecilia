@@ -28,15 +28,15 @@ class WorkspacesController < ApplicationController
   private
 
     # TODO: move this to application controller and call before going to root if user has current_workspace set?
-    def authenticate_user_membership this_workspace
-      unless this_workspace.users.include? current_user
-        flash[:error] = "Error ____: Not a member. Workspace id: #{this_workspace.id}"
-        redirect_to authenticated_root_url #TODO: replace this with workspace selection page
-      end
-    end
+    # def authenticate_user_membership this_workspace
+    #   unless this_workspace.users.include? current_user
+    #     flash[:error] = "Error ____: Not a member. Workspace id: #{this_workspace.id}"
+    #     redirect_to authenticated_root_url #TODO: replace this with workspace selection page
+    #   end
+    # end
 
     def set_workspace
-      @workspace = Workspace.find(params[:id])
+      @workspace = Workspace.find(params[:id]) # FIXME: maybe not wise to pass result of find to @ variable
       authenticate_user_membership @workspace
 
       # make this user's current workspace
