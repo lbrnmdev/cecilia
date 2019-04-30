@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :wallets, only: [:new]
   resources :workspaces, only: [:new, :create, :show]
   resources :user_profiles, only: [:new, :create]
   resources :memberships, only: [:new, :create]
