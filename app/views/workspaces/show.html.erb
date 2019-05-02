@@ -49,12 +49,41 @@
       </div>
       <!-- end graphics placeholders -->
 
-      <div class="ui placeholder segment">
-        <div class="ui icon header">
-          <i class="cart plus icon"></i>
-          No transactions are listed for this customer.
+      <div class="ui stackable grid">
+        <div class="ui sixteen wide mobile ten wide tablet ten wide computer column">
+          <div class="ui placeholder segment">
+            <div class="ui icon header">
+              <i class="cart plus icon"></i>
+              No transactions yet...
+            </div>
+            <div class="ui primary button">Add Transaction</div>
+          </div>
         </div>
-        <div class="ui primary button">Add Transaction</div>
+        <div class="ui sixteen wide mobile six wide tablet six wide computer middle aligned column">
+          <% if @workspace.wallets.any? %>
+            <% @workspace.wallets.order(updated_at: :desc).take(2).each do |wallet| %>
+              <%= link_to wallet, class:'ui card' do %>
+                <div class="content">
+                  <div class="header">
+                    <%= wallet.name %>
+                  </div>
+                  <div class="description">
+                    <h3 class="ui green header">
+                      ₵ 1200.00
+                      <div class="sub header">
+                        available
+                      </div>
+                    </h3>
+                  </div>
+                  <div class="meta">
+                    <span class="right floated">Last activity: <%= time_ago_in_words(wallet.updated_at) %> ago</span>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          <a href="#">link to wallets...</a>
+        </div>
       </div>
 
     </div>
