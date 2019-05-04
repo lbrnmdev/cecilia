@@ -1,2 +1,89 @@
-<h1>Wallets#edit</h1>
-<p>Find me in app/views/wallets/edit.html.erb</p>
+<div class="ui container">
+  <div class="ui computer reversed grid">
+    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
+      <h2 class="ui header">
+        <div class="content">
+          Wallet Settings
+          <div class="sub header">
+            Manage "<i><%= @wallet.name %></i>" settings
+          </div>
+        </div>
+      </h2>
+
+      <div class="ui segment shadowless">
+        <%= form_for(@wallet, html: {class: 'ui form'}) do |f| %>
+          <div class="field <%= "error" if @wallet.errors.details.key? :name %>">
+            <%= f.text_field :name, autofocus: true, placeholder: 'Wallet name' %>
+            <span><small>Name wallet as you wish, for example 'Main wallet'</small></span>
+          </div>
+          <%= f.submit "Update", class:"ui large blue fluid button"%>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- side menu -->
+    <div class="sixteen wide mobile four wide tablet four wide computer column">
+      <div class="row">
+        <div class="item">
+          <h2 class="ui header">
+            <%= (@wallet.workspace.name).truncate(23) %>
+            <div class="sub header">
+              <button class="ui basic tiny blue fluid button switch_workspace">switch workspace</button>
+            </div>
+          </h2>
+          <!-- begin workspace selection modal -->
+          <div class="ui long large modal select_workspace">
+            <div class="header">
+              Your workspaces
+            </div>
+            <div class="content">
+              <% if current_user.workspaces.count > 1 %>
+                <div class="ui equal width center aligned divided stackable grid">
+                  <% current_user.workspaces.reject { |w| w == @wallet.workspace }.each do |w| %>
+                    <div class="column">
+                      <h3 class="ui header"><%= w.name.truncate(23) %></h3>
+                      <% if w.description.blank? || w.description.nil? %>
+                        <p><i>No description</i></p>
+                      <% else %>
+                        <p><%= w.description.truncate(23) %></p>
+                      <% end %>
+                      <%= link_to 'Select', w, class:'ui basic blue button' %>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <p>Click <%= link_to 'here', new_membership_path %> to join/create a new workspace</p>
+              <% end %>
+            </div>
+            <div class="actions">
+              <%= link_to 'Join/Create Workspace', new_membership_path, class:'ui left floated green basic button' %>
+              <div class="ui red basic cancel button">
+                <i class="remove icon"></i>
+                Cancel
+              </div>
+            </div>
+          </div>
+          <!-- end workspace selection modal -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="ui blue fluid huge pointing vertical secondary menu">
+          <a href="#" class="header active item">Overview</a>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left envelope icon"></i> -->
+            SMS messaging
+          <% end %>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left dollar icon"></i> -->
+            Money disbursement
+          <% end %>
+          <div class="ui divider"></div>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left question icon"></i> -->
+            Help
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -41,6 +41,7 @@ class WorkspacesController < ApplicationController
 
       # make this user's current workspace
       # TODO: figure out how to avoid writing to db if already current workspace
+      # TODO: change current workspace management from db to session/memory
       current_user.user_profile.update(current_workspace: @workspace)
     end
 
