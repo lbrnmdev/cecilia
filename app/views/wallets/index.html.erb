@@ -1,2 +1,105 @@
-<h1>Wallets#index</h1>
-<p>Find me in app/views/wallets/index.html.erb</p>
+<div class="ui container">
+  <div class="ui computer reversed grid">
+    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
+      <h1 class="ui header">
+        Wallets
+        <div class="sub header">
+          <%= link_to 'add a new wallet...', new_workspace_wallet_path(@workspace) %>
+        </div>
+      </h1>
+
+      <% if @wallets.any? %>
+        <table class="ui selectable table">
+          <thead class="full-width">
+            <tr>
+              <th>Wallet name</th>
+              <th>Actual</th>
+              <th>Available</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @wallets.each do |w| %>
+              <tr>
+                <td><%= link_to w.name, w %></td>
+                <td class="right aligned">₵ 1400.00</td>
+                <td class="positive right aligned">₵ 1200.00</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <div class="ui placeholder segment">
+          <div class="ui icon header">
+            No wallets yet for this workspace...
+          </div>
+          <%= link_to 'Add Wallet', new_workspace_wallet_path(@workspace), class:'ui primary button' %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- side menu -->
+    <div class="sixteen wide mobile four wide tablet four wide computer column">
+      <div class="row">
+        <div class="item">
+          <h2 class="ui header">
+            <%= (@workspace.name).truncate(23) %>
+            <div class="sub header">
+              <button class="ui basic tiny blue fluid button switch_workspace">switch workspace</button>
+            </div>
+          </h2>
+          <!-- begin workspace selection modal -->
+          <div class="ui long large modal select_workspace">
+            <div class="header">
+              Your workspaces
+            </div>
+            <div class="content">
+              <% if current_user.workspaces.count > 1 %>
+                <div class="ui equal width center aligned divided stackable grid">
+                  <% current_user.workspaces.reject { |w| w == @workspace }.each do |w| %>
+                    <div class="column">
+                      <h3 class="ui header"><%= w.name.truncate(23) %></h3>
+                      <% if w.description.blank? || w.description.nil? %>
+                        <p><i>No description</i></p>
+                      <% else %>
+                        <p><%= w.description.truncate(23) %></p>
+                      <% end %>
+                      <%= link_to 'Select', w, class:'ui basic blue button' %>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <p>Click <%= link_to 'here', new_membership_path %> to join/create a new workspace</p>
+              <% end %>
+            </div>
+            <div class="actions">
+              <%= link_to 'Join/Create Workspace', new_membership_path, class:'ui left floated green basic button' %>
+              <div class="ui red basic cancel button">
+                <i class="remove icon"></i>
+                Cancel
+              </div>
+            </div>
+          </div>
+          <!-- end workspace selection modal -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="ui blue fluid huge pointing vertical secondary menu">
+          <a href="#" class="header active item">Overview</a>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left envelope icon"></i> -->
+            SMS messaging
+          <% end %>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left dollar icon"></i> -->
+            Money disbursement
+          <% end %>
+          <div class="ui divider"></div>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left question icon"></i> -->
+            Help
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :wallets, only: [:new, :show, :edit, :update]
-  resources :workspaces, only: [:new, :create, :show]
+  resources :wallets, only: [:show, :edit, :update]
+  resources :workspaces, only: [:new, :create, :show] do
+    resources :wallets, only: [:index, :new]
+  end
   resources :user_profiles, only: [:new, :create]
   resources :memberships, only: [:new, :create]
   get 'home', to: 'app_home#home', as: 'home'

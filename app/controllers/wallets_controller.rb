@@ -1,5 +1,6 @@
 class WalletsController < ApplicationController
   before_action :set_wallet, only: [:show, :edit, :update]
+  before_action :set_owning_workspace, only: [:index]
 
   def new
   end
@@ -8,6 +9,7 @@ class WalletsController < ApplicationController
   end
 
   def index
+    @wallets = @workspace.wallets
   end
 
   def edit
@@ -32,6 +34,15 @@ class WalletsController < ApplicationController
       # TODO: figure out how to avoid writing to db if already current workspace
       # TODO: change current workspace management from db to session/memory
       current_user.user_profile.update(current_workspace: @wallet.workspace)
+    end
+
+    def set_owning_workspace
+      this_workspace = Workspace.find(params[:workspace_id])
+      authenticate_user_membership this_workspace
+      @workspace = this_workspace
+      # TODO: figure out how to avoid writing to db if already current workspace
+      # TODO: change current workspace management from db to session/memory
+      current_user.user_profile.update(current_workspace: @workspace)
     end
 
     def wallet_params
