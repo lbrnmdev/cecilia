@@ -18,9 +18,9 @@
             </tr>
           </thead>
           <tbody>
-            <% @wallets.each do |w| %>
+            <% @wallets.each_with_index do |wallet, index| %>
               <tr>
-                <td><%= link_to w.name, w %></td>
+                <td><%= link_to((wallet.name.present? ? wallet.name : "#{(index+1).ordinalize} wallet"), wallet) %></td>
                 <td class="right aligned">₵ 1400.00</td>
                 <td class="positive right aligned">₵ 1200.00</td>
               </tr>

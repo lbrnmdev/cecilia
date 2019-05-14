@@ -1,8 +1,19 @@
 class WalletsController < ApplicationController
   before_action :set_wallet, only: [:show, :edit, :update]
-  before_action :set_owning_workspace, only: [:index]
+  before_action :set_owning_workspace, only: [:index, :new, :create]
 
   def new
+    @wallet = @workspace.wallets.new
+  end
+
+  def create
+    @wallet = @workspace.wallets.new wallet_params
+    if @wallet.save
+      flash[:success] = "Wallet: #{@wallet.name.present? ? @wallet.name : "New wallet"} created."
+      redirect_to @wallet
+    else
+      render 'new'
+    end
   end
 
   def show

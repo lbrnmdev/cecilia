@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :wallets, only: [:show, :edit, :update]
   resources :workspaces, only: [:new, :create, :show] do
-    resources :wallets, only: [:index, :new]
+    resources :wallets, only: [:index, :new, :create]
   end
   resources :user_profiles, only: [:new, :create]
   resources :memberships, only: [:new, :create]
