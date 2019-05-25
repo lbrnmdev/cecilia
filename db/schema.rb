@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_28_204459) do
+ActiveRecord::Schema.define(version: 2019_05_25_001706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "disbursements", force: :cascade do |t|
+    t.string "description"
+    t.string "status", default: "not yet processed", null: false
+    t.bigint "wallet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_disbursements_on_wallet_id"
+  end
 
   create_table "memberships", force: :cascade do |t|
     t.bigint "workspace_id", null: false
@@ -69,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_04_28_204459) do
     t.index ["sign_up_code"], name: "index_workspaces_on_sign_up_code", unique: true
   end
 
+  add_foreign_key "disbursements", "wallets"
   add_foreign_key "memberships", "users"
   add_foreign_key "memberships", "workspaces"
   add_foreign_key "user_profiles", "users"
