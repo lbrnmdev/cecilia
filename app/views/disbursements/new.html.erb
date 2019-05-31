@@ -1,49 +1,25 @@
 <div class="ui container">
   <div class="ui computer reversed grid">
-    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
-      <h1 class="ui header"><%= @wallet.name %></h1>
 
-      <div class="ui two column stackable grid">
-        <div class="column">
-          <div class="ui placeholder segment">
-            <div class="ui icon header">
-              <i class="chart bar outline icon"></i>
-              placeholder for balance chart
-            </div>
+    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
+      <h1 class="ui header">
+        <div class="content">
+          <%= @wallet.name %>
+          <div class="sub header">
+            Create a new disbursement from this wallet
           </div>
         </div>
-        <div class="center aligned column">
-          <div class="ui statistic">
-            <div class="value">
-              ₵ 1200.00
-            </div>
-            <div class="label">
-              available
-            </div>
-          </div>
-          <div class="ui divider"></div>
-          <div class="ui tiny statistic">
-            <div class="value">
-              ₵ 1400.00
-            </div>
-            <div class="label">
-              actual
-            </div>
-          </div>
-          <div class="ui divider"></div>
-          <%= link_to 'new disbursement', new_wallet_disbursement_path(@wallet) %> |
-          <%= link_to 'wallet settings', edit_wallet_path(@wallet) %>
-        </div>
-      </div>
+      </h1>
 
       <div class="ui stackable grid">
         <div class="column">
-          <div class="ui placeholder segment">
-            <div class="ui icon header">
-              <i class="table icon"></i>
-              no transactions yet
+          <%= form_for([@wallet, @disbursement], html: {class: 'ui form'}) do |f| %>
+            <div class="field <%= "error" if @disbursement.errors.details.key? :description %>">
+              <%= f.text_area :description, autofocus: true, placeholder: 'Short description...' %>
             </div>
-          </div>
+            <%= f.submit "Next", class:"ui large green right floated button"%>
+            <%= link_to "Cancel", @wallet, class:"ui large red basic button" %>
+          <% end %>
         </div>
       </div>
     </div>

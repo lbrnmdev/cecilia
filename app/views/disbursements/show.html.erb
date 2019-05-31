@@ -1,0 +1,166 @@
+<div class="ui container">
+  <div class="ui computer reversed grid">
+
+    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
+      <h1 class="ui header">
+        <div class="content">
+          <%= "Disburse from " + @disbursement.wallet.name %>
+          <div class="sub header">
+            <%= "Created: " + @disbursement.created_at.to_formatted_s(:long) %>
+          </div>
+        </div>
+      </h1>
+
+      <div class="ui computer reversed grid">
+        <div class="sixteen wide mobile four wide tablet four wide computer column">
+          <div class="ui card">
+            <div class="content">
+              <div class="header"><%= @disbursement.wallet.name %></div>
+              <div class="meta">
+                <span>balance</span>
+              </div>
+              <div class="description">
+                <h3 class="ui green header">$1200.00 available</h3>
+                <h5 class="ui grey header">$1000.00 actual</h5>
+              </div>
+            </div>
+            <div class="extra content">
+              <div class="right floated">
+                updated <%= Time.now.to_formatted_s :short %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
+          <div class="ui secondary menu">
+            <a class="item" data-tooltip="Select all">
+              <i class="check square outline icon"></i>
+            </a>
+            <a class="item" data-tooltip="Reload">
+              <i class="redo icon"></i>
+            </a>
+            <a class="item" data-tooltip="Delete">
+              <i class="trash alternate icon"></i>
+            </a>
+            <div class="right menu">
+              <!-- <a class="item" data-tooltip="Add beneficiary">
+                <i class="icons">
+                  <i class="user outline icon"></i>
+                  <i class="corner add icon"></i>
+                </i>
+              </a> -->
+              <div class="item">
+                <div class="ui green labeled icon button">
+                  <i class="add icon"></i>
+                  New beneficiary
+                </div>
+              </div>
+            </div>
+          </div>
+          <table class="ui celled structured small compact unstackable table">
+            <thead>
+              <tr>
+                <th rowspan="2"></th>
+                <th rowspan="2">Name</th>
+                <th rowspan="2">Phone No.</th>
+                <th rowspan="2">Status</th>
+                <th colspan="3" class="center aligned">Amount</th>
+              </tr>
+              <tr>
+                <th>Disbursement</th>
+                <th>Fee (0.5%)</th>
+                <th><b>Total</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="center aligned">
+                  <div class="ui fitted checkbox">
+                    <input type="checkbox"><label></label>
+                  </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ui fluid blue button">
+            Process disbursement
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- side menu -->
+    <div class="sixteen wide mobile four wide tablet four wide computer column">
+      <div class="row">
+        <div class="item">
+          <h2 class="ui header">
+            <%= (@disbursement.wallet.workspace.name).truncate(23) %>
+            <div class="sub header">
+              <button class="ui basic tiny blue fluid button switch_workspace">switch workspace</button>
+            </div>
+          </h2>
+          <!-- begin workspace selection modal -->
+          <div class="ui long large modal select_workspace">
+            <div class="header">
+              Your workspaces
+            </div>
+            <div class="content">
+              <% if current_user.workspaces.count > 1 %>
+                <div class="ui equal width center aligned divided stackable grid">
+                  <% current_user.workspaces.reject { |w| w == @disbursement.wallet.workspace }.each do |w| %>
+                    <div class="column">
+                      <h3 class="ui header"><%= w.name.truncate(23) %></h3>
+                      <% if w.description.blank? || w.description.nil? %>
+                        <p><i>No description</i></p>
+                      <% else %>
+                        <p><%= w.description.truncate(23) %></p>
+                      <% end %>
+                      <%= link_to 'Select', w, class:'ui basic blue button' %>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <p>Click <%= link_to 'here', new_membership_path %> to join/create a new workspace</p>
+              <% end %>
+            </div>
+            <div class="actions">
+              <%= link_to 'Join/Create Workspace', new_membership_path, class:'ui left floated green basic button' %>
+              <div class="ui red basic cancel button">
+                <i class="remove icon"></i>
+                Cancel
+              </div>
+            </div>
+          </div>
+          <!-- end workspace selection modal -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="ui blue fluid huge pointing vertical secondary menu">
+          <a href="#" class="header item">Overview</a>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left envelope icon"></i> -->
+            SMS messaging
+          <% end %>
+          <%= link_to '#', class: 'active item' do %>
+            <!-- <i class="left dollar icon"></i> -->
+            Money disbursement
+          <% end %>
+          <div class="ui divider"></div>
+          <%= link_to '#', class: 'item' do %>
+            <!-- <i class="left question icon"></i> -->
+            Help
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% console %>
