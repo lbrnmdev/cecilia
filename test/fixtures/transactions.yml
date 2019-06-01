@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  beneficiary_name: MyString
+  msisdn: MyString
+  disbursement: one
+  no_of_attempts: 1
+  status: MyString
+  amount: 9.99
+
+two:
+  beneficiary_name: MyString
+  msisdn: MyString
+  disbursement: two
+  no_of_attempts: 1
+  status: MyString
+  amount: 9.99

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_25_001706) do
+ActiveRecord::Schema.define(version: 2019_06_01_011832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(version: 2019_05_25_001706) do
     t.index ["workspace_admin"], name: "index_memberships_on_workspace_admin"
     t.index ["workspace_id", "user_id"], name: "index_memberships_on_workspace_id_and_user_id", unique: true
     t.index ["workspace_id"], name: "index_memberships_on_workspace_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "beneficiary_name"
+    t.string "msisdn", null: false
+    t.bigint "disbursement_id"
+    t.integer "no_of_attempts", default: 0, null: false
+    t.string "status", default: "not yet attempted", null: false
+    t.decimal "amount", precision: 9, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["disbursement_id"], name: "index_transactions_on_disbursement_id"
   end
 
   create_table "user_profiles", force: :cascade do |t|
@@ -81,6 +93,7 @@ ActiveRecord::Schema.define(version: 2019_05_25_001706) do
   add_foreign_key "disbursements", "wallets"
   add_foreign_key "memberships", "users"
   add_foreign_key "memberships", "workspaces"
+  add_foreign_key "transactions", "disbursements"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_profiles", "workspaces", column: "current_workspace_id", on_delete: :nullify
   add_foreign_key "wallets", "workspaces"
