@@ -1,4 +1,4 @@
-class Transaction < ApplicationRecord
+class Transfer < ApplicationRecord
   belongs_to :disbursement
 
   validates :msisdn, presence: true
