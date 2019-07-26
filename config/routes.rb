@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :disbursements, only: [:show, :edit, :update]
+  resources :disbursements, only: [:show, :edit, :update] do
+    resources :transfers, only: [:index, :new, :create]
+  end
   resources :wallets, only: [:show, :edit, :update] do
     resources :disbursements, only: [:index, :new, :create]
   end

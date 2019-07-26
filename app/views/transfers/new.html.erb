@@ -33,66 +33,25 @@
         </div>
 
         <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
-          <div class="ui secondary menu">
-            <a class="item" data-tooltip="Select all">
-              <i class="check square outline icon"></i>
-            </a>
-            <a class="item" data-tooltip="Reload">
-              <i class="redo icon"></i>
-            </a>
-            <a class="item" data-tooltip="Delete">
-              <i class="trash alternate icon"></i>
-            </a>
-            <div class="right menu">
-              <!-- <a class="item" data-tooltip="Add beneficiary">
-                <i class="icons">
-                  <i class="user outline icon"></i>
-                  <i class="corner add icon"></i>
-                </i>
-              </a> -->
-              <div class="item">
-                <%= link_to new_disbursement_transfer_path(@disbursement), class: 'ui green labeled icon button' do %>
-                  <i class="add icon"></i>
-                  New beneficiary
-                <% end %>
+          <div class="ui segment">
+            <%= form_for([@disbursement, @transfer], html: {class: 'ui form'}) do |f| %>
+              <h3 class="ui center aligned dividing header">Add transfer</h3>
+              <div class="field <%= "error" if @transfer.errors.details.key? :beneficiary_name %>">
+                <%= f.label :beneficiary_name %>
+                <%= f.text_field :beneficiary_name, autofocus: true, placeholder: 'Name of beneficiary' %>
               </div>
-            </div>
-          </div>
-          <table class="ui selectable celled structured small compact unstackable table">
-            <thead>
-              <tr>
-                <th rowspan="2"></th>
-                <th rowspan="2">Name</th>
-                <th rowspan="2">Phone No.</th>
-                <th rowspan="2">Status</th>
-                <th colspan="3" class="center aligned">Amount</th>
-              </tr>
-              <tr>
-                <th>Disbursement</th>
-                <th>Fee (0.5%)</th>
-                <th><b>Total</b></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @disbursement.transfers.each do |transfer| %>
-                <tr>
-                  <td class="center aligned">
-                    <div class="ui fitted checkbox">
-                      <input type="checkbox"><label></label>
-                    </div>
-                  </td>
-                  <td><%= transfer.beneficiary_name %></td>
-                  <td><%= transfer.msisdn %></td>
-                  <td><%= transfer.status %></td>
-                  <td><%= transfer.amount %></td>
-                  <td><%= transfer.fee %></td>
-                  <td><%= transfer.total %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-          <div class="ui fluid blue button">
-            Process disbursement
+              <div class="field <%= "error" if @transfer.errors.details.key? :msisdn %>">
+                <%= f.label :msisdn, 'MSISDN' %>
+                <%= f.text_field :msisdn, autofocus: true, placeholder: 'Target phone number' %>
+              </div>
+              <div class="field <%= "error" if @transfer.errors.details.key? :amount %>">
+                <%# add js to display fee and total amount in this row %>
+                <%= f.label :amount %>
+                <%= f.number_field :amount, step: 0.01, autofocus: true, placeholder: 'Amount to be transfered' %>
+              </div>
+              <%= f.submit "Add", class:"ui large green right floated button" %>
+              <%= link_to "Cancel", @disbursement, class:"ui large red basic button" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -162,5 +121,7 @@
         </div>
       </div>
     </div>
+    <!-- end side menu -->
+
   </div>
 </div>
