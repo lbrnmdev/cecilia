@@ -27,7 +27,6 @@ class DisbursementsController < ApplicationController
   private
 
     def set_disbursement
-      this_wallet = Wallet.find(params[:id])
       this_disbursement = Disbursement.find(params[:id])
       # ensure disbursement belongs to workspace of which user is a member
       authenticate_user_membership this_disbursement.wallet.workspace

@@ -36,16 +36,47 @@
         </div>
       </div>
 
-      <div class="ui stackable grid">
-        <div class="column">
-          <div class="ui placeholder segment">
-            <div class="ui icon header">
-              <i class="table icon"></i>
-              no transactions yet
+      <% if @wallet.disbursements.any? %>
+        <div class="ui blue segment">
+          <h3 class="ui center aligned blue header">Disbursements</h3>
+          <table class="ui very basic table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Date created</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @wallet.disbursements.first(5).each do |disbursement| %>
+                <tr>
+                  <td><%= link_to disbursement.description, disbursement %></td>
+                  <td><%= disbursement.created_at %></td>
+                  <td><%= disbursement.status %></td>
+                </tr>
+              <% end %>
+            </tbody>
+            <tfoot class="full-width">
+              <tr>
+                <th></th>
+                <th></th>
+                <th class="right aligned"><%= link_to "view all...", wallet_disbursements_path(@wallet) %></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      <% else %>
+        <div class="ui stackable grid">
+          <div class="column">
+            <div class="ui placeholder segment">
+              <div class="ui icon header">
+                <i class="table icon"></i>
+                no transactions yet
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
 
     <!-- side menu -->
