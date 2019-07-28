@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <% if @wallet.disbursements %>
+      <% if @wallet.disbursements.any? %>
         <div class="ui blue segment">
           <h3 class="ui center aligned blue header">Disbursements</h3>
           <table class="ui very basic table">
