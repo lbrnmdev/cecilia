@@ -6,11 +6,13 @@ class Transfer < ApplicationRecord
   validates :status, presence: true
 
   # compute transaction fee (at 0.5%) # TODO: should be set somewhere else
+  # TODO: compute to 2 decimal places
   def fee
     (amount * 0.005) if amount
   end
 
   # compute transaction total
+  # TODO: compute to 2 decimal places
   def total
     (amount + fee) if amount
   end
