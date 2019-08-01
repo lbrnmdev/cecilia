@@ -13,7 +13,8 @@ class Wallet < ApplicationRecord
   def actual_balance
     # sum inbound
     # sum successful outbound
-    # return inbound - outbound
+    # return inbound - outbound # FIXME: replace outbound transfer sum with more efficient query, change to sum transfer totals directly
+    inbound_transfers.sum(:amount) - Transfer.where(disbursement: disbursements, status:'successful').sum(:amount) * 1.005
   end
 
   # TODO: implement method to calculate available balance

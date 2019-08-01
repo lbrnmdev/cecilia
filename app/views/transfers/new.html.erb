@@ -20,8 +20,8 @@
                 <span>balance</span>
               </div>
               <div class="description">
-                <h3 class="ui green header">$1200.00 available</h3>
-                <h5 class="ui grey header">$1000.00 actual</h5>
+                <h3 class="ui green header">₵1200.00 available</h3>
+                <h5 class="ui grey header"><%= number_to_currency(@disbursement.wallet.actual_balance, unit:"₵") %> actual</h5>
               </div>
             </div>
             <div class="extra content">
