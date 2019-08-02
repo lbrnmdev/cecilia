@@ -6,7 +6,7 @@
         <div class="content">
           <%= link_to @wallet.name, @wallet %>
           <div class="sub header">
-            <%= number_to_currency(@wallet.actual_balance, unit:"₵") %> available
+            <%= number_to_currency(@wallet.available_balance, unit:"₵") %> available
           </div>
         </div>
       </h2>

@@ -15,7 +15,7 @@
         <div class="center aligned column">
           <div class="ui statistic">
             <div class="value">
-              ₵ 1200.00              
+              <%= number_to_currency(@wallet.available_balance, unit:"₵") %>              
             </div>
             <div class="label">
               available

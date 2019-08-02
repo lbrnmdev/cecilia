@@ -22,7 +22,7 @@
               <tr>
                 <td><%= link_to((wallet.name.present? ? wallet.name : "#{(index+1).ordinalize} wallet"), wallet) %></td>
                 <td class="right aligned"><%= number_to_currency(wallet.actual_balance, unit:"₵") %></td>
-                <td class="positive right aligned">₵ 1200.00</td>
+                <td class="positive right aligned"><%= number_to_currency(wallet.available_balance, unit:"₵") %></td>
               </tr>
             <% end %>
           </tbody>

@@ -21,7 +21,8 @@ class Wallet < ApplicationRecord
   # sum up wallet's successful and pending disbursements
   def available_balance
     # sum inbound
-    # sum successful and pending disbursements
+    # sum successful and pending disbursements(FIXME: for now these are failed transfers, transfers should set to archived so as not to be considered as pending)
     # return difference
+    inbound_transfers.sum(:amount) - Transfer.where(disbursement: disbursements, status:['successful', 'failed']).sum(:amount) * 1.005
   end
 end
