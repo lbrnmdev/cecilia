@@ -1,5 +1,5 @@
 class DisbursementsController < ApplicationController
-  before_action :set_disbursement, only: [:show, :edit, :update]
+  before_action :set_disbursement, only: [:show, :edit, :update, :process_disbursement]
   before_action :set_owning_wallet, only: [:index, :new, :create]
 
   def new
@@ -22,6 +22,12 @@ class DisbursementsController < ApplicationController
   end
 
   def edit
+  end
+
+  def process_disbursement
+    ProcessDisbursementWorker.perform_async @disbursement.id
+    flash[:notice] = "Processing disbursements..."
+    redirect_to @disbursement
   end
 
   private

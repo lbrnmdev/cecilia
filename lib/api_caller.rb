@@ -5,7 +5,7 @@ module ApiCaller
   # Telco transfer request processing
   module Telco
     # set telco api url
-    # TODO: refactor, move this to app config/initializer
+    # TODO: refactor, move this to app config/initializer. hmmm maybe? big debate
     if Rails.env.development? || Rails.env.test?
       TELCO_API_URL = "http://localhost:8080/"
     elsif Rails.env.production?

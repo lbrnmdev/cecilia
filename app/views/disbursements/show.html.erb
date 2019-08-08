@@ -91,9 +91,7 @@
               <% end %>
             </tbody>
           </table>
-          <div class="ui fluid blue button">
-            Process disbursement
-          </div>
+          <%= link_to 'Process disbursement', process_disbursement_path(@disbursement), method: :patch, class:'ui fluid blue button' %>
         </div>
       </div>
     </div>
