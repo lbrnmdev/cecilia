@@ -26,8 +26,9 @@ class DisbursementsController < ApplicationController
 
   def process_disbursement
     ProcessDisbursementWorker.perform_async @disbursement.id
-    flash[:notice] = "Processing disbursements..."
-    redirect_to @disbursement
+    # flash[:notice] = "Processing disbursements..."
+    # redirect_to @disbursement
+    # FIXME: this returns a 204 no content
   end
 
   private

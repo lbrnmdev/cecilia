@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   patch 'disbursements/:id/process_disbursement', to: 'disbursements#process_disbursement', as: :process_disbursement
   resources :disbursements, only: [:show, :edit, :update] do
     resources :transfers, only: [:index, :new, :create]
@@ -36,5 +36,9 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
+
+  # serve websocket requests in-process
+  mount ActionCable.server => '/cable'
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
