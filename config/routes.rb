@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  # debug sidekiq
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   patch 'disbursements/:id/process_disbursement', to: 'disbursements#process_disbursement', as: :process_disbursement
   resources :disbursements, only: [:show, :edit, :update] do
     resources :transfers, only: [:index, :new, :create]
@@ -39,6 +43,6 @@ Rails.application.routes.draw do
 
   # serve websocket requests in-process
   mount ActionCable.server => '/cable'
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
