@@ -9,7 +9,7 @@ module ApiCaller
     if Rails.env.development? || Rails.env.test?
       TELCO_API_URL = "http://localhost:8080/"
     elsif Rails.env.production?
-      TELCO_API_URL = ENV['TELCO_API_URL']
+      TELCO_API_URL = ENV.fetch("TELCO_API_URL") { "http://localhost:8080/" }
     end
 
     # returns status of process request as string: success||fail
