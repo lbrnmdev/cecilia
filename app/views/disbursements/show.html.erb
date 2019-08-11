@@ -51,6 +51,9 @@
                 </i>
               </a> -->
               <div class="item">
+                <div id="disbursement_loader" class="ui disabled inline loader"></div>
+              </div>
+              <div class="item">
                 <%= link_to new_disbursement_transfer_path(@disbursement), class: 'ui green labeled icon button' do %>
                   <i class="add icon"></i>
                   New beneficiary
@@ -83,7 +86,7 @@
                   </td>
                   <td><%= transfer.beneficiary_name %></td>
                   <td><%= transfer.msisdn %></td>
-                  <td><%= transfer.status %></td>
+                  <td id="<%= "status_cell_#{transfer.id}" %>"><%= transfer.status %></td>
                   <td><%= transfer.amount %></td>
                   <td><%= transfer.fee %></td>
                   <td><%= transfer.total %></td>
@@ -91,9 +94,7 @@
               <% end %>
             </tbody>
           </table>
-          <div class="ui fluid blue button">
-            Process disbursement
-          </div>
+          <%= link_to 'Process disbursement', process_disbursement_path(@disbursement), method: :patch, class:'ui fluid blue button' %>
         </div>
       </div>
     </div>
